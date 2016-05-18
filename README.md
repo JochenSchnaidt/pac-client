@@ -1,0 +1,1 @@
+Client side application of the Voting PoC.
