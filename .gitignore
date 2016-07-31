@@ -1,7 +1,8 @@
 .
 .classpath
 .project
-.settings/
+.settings
 .recommenders
 .metadata
-/target/
+/node_modules
+/typings
