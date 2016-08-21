@@ -1,0 +1,29 @@
+<h2>This is the user</h2>
+<ul class="users">
+  <li *ngFor="let user of users" (click)="onSelect(user)" [class.selected]="user === selectedUser">
+    <span class="user-element">
+      <span class="badge">{{user.id}}</span> {{user.lastName}}
+    </span>
+    <button class="delete-button" (click)="deleteUser(user, $event)">Delete</button>
+  </li>
+</ul>
+
+<div class="error" *ngIf="error">{{error}}</div>
+<button (click)="addUser()">Add New User</button>
+<div *ngIf="addingUser">
+  <my-user-detail (close)="close($event)"></my-user-detail>
+</div>
+
+<div *ngIf="selectedUser">
+  <h2>
+    {{selectedUser.lastName}} is the current selected user
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
+
+
+<!-- 
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

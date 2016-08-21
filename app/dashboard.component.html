@@ -1,10 +1,20 @@
-<h3>Top Heroes</h3>
+<h3>"Special Users"</h3>
 <div class="grid grid-pad">
-  <div *ngFor="let hero of heroes" (click)="gotoDetail(hero)" class="col-1-4">
-    <div class="module hero">
-      <h4>{{hero.name}}</h4>
+  <div *ngFor="let user of users" (click)="goToUserDetail(user)" class="col-1-4">
+    <div class="module user">
+      <h4>{{user.firstName}} {{user.lastName}}</h4>
     </div>
   </div>
+</div> 
+
+  <h3>Latest Votings</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let vote of votes" (click)="goToVoteDetail(vote)" class="col-1-4">
+    <div class="module vote">
+      <h4>{{vote.topic}}</h4>
+    </div>
+  </div>
+  
 </div>
 
 

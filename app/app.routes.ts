@@ -1,8 +1,13 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 
-import { DashboardComponent } from './dashboard.component';
-import { HeroesComponent } from './heroes.component';
-import { HeroDetailComponent } from './hero-detail.component';
+import { DashboardComponent }        from './dashboard.component';
+
+import { UsersComponent }            from './user/users.component';
+import { UserDetailComponent }       from './user/detail/user-detail.component';
+
+import { VotesComponent }            from './vote/votes.component';
+import { VoteDetailComponent }       from './vote/detail/vote-detail.component';
+import { VoteParticipateComponent }  from './vote/participate/vote-participate.component';
 
 export const routes: RouterConfig = [
   {
@@ -11,16 +16,34 @@ export const routes: RouterConfig = [
     pathMatch: 'full'
   },
   {
-    path: 'dashboard',
+    path: 'dashboard', 
     component: DashboardComponent
   },
+
   {
-    path: 'detail/:id',
-    component: HeroDetailComponent
+    path: 'votes',
+    component: VotesComponent
+  },
+  
+  {
+    path: 'voteDetail/:id',
+    component: VoteDetailComponent
+  },
+
+  {
+    path: 'voteParticipate/:id',
+    component: VoteParticipateComponent
+  },
+
+  
+  
+  {
+    path: 'userDetail/:email',
+    component: UserDetailComponent
   },
   {
-    path: 'heroes',
-    component: HeroesComponent
+    path: 'users',
+    component: UsersComponent
   }
 ];
 

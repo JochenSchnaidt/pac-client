@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }           from '@angular/router';
 
-import { Hero }        from './hero';
-import { HeroService } from './hero.service';
+ 
+
+import { User }           from './user/model/user';
+import { UserService }    from './user/user.service';
+
+import { Vote }           from './vote/model/vote';
+import { VoteService }    from './vote/vote.service';
+
 
 @Component({
   selector: 'my-dashboard',
@@ -11,20 +17,40 @@ import { HeroService } from './hero.service';
 })
 export class DashboardComponent implements OnInit {
 
-  heroes: Hero[] = [];
+  users: User[] = []; 
+  votes: Vote[] = [];
 
   constructor(
     private router: Router,
-    private heroService: HeroService) {
+    private userService: UserService,
+    private voteService: VoteService) {
   }
 
   ngOnInit() {
-    this.heroService.getHeroes()
-      .then(heroes => this.heroes = heroes.slice(1, 5));
+      
+       this.userService.getAll()
+      .subscribe((data:User[]) => this.users = data,
+                error => console.log(error),
+                () => console.log('On dashboard init: Get all users complete'));
+  
+           this.voteService.getAll()
+      .subscribe((data:Vote[]) => this.votes = data,
+                error => console.log(error),
+                () => console.log('On dashboard init: Get all votes complete'));
+  
+      
+      
+    //this.userService.getHeroes();
+     // .then(heroes => this.heroes = heroes.slice(1, 5));
   }
 
-  gotoDetail(hero: Hero) {
-    let link = ['/detail', hero.id];
+  goToUserDetail(user: User) {
+    let link = ['/userDetail', user.email];
+    this.router.navigate(link);
+  }
+    
+  goToVoteDetail(vote: Vote) {
+    let link = ['/voteDetail', vote.id];
     this.router.navigate(link);
   }
 }

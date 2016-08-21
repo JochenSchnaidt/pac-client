@@ -1,5 +1,5 @@
 export class Option {
     id: string;
-    value: string;
+    name: string;
     counter: number;
 }
