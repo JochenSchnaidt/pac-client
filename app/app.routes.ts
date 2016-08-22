@@ -1,5 +1,7 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
 
+import { AuthenticationComponent }        from './authentication/authentication.component';
+
 import { DashboardComponent }        from './dashboard.component';
 
 import { UsersComponent }            from './user/users.component';
@@ -10,45 +12,50 @@ import { VoteDetailComponent }       from './vote/detail/vote-detail.component';
 import { VoteParticipateComponent }  from './vote/participate/vote-participate.component';
 
 export const routes: RouterConfig = [
-  {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard', 
-    component: DashboardComponent
-  },
+    {
+        path: '',
+        redirectTo: '/authentication',
+        //      redirectTo: '/dashboard',
+        pathMatch: 'full'
+    },
+    {
+        path: 'authentication',
+        component: AuthenticationComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent
+    },
 
-  {
-    path: 'votes',
-    component: VotesComponent
-  },
-  
-  {
-    path: 'voteDetail/:id',
-    component: VoteDetailComponent
-  },
+    {
+        path: 'votes',
+        component: VotesComponent
+    },
 
-  {
-    path: 'voteParticipate/:id',
-    component: VoteParticipateComponent
-  },
+    {
+        path: 'voteDetail/:id',
+        component: VoteDetailComponent
+    },
 
-  
-  
-  {
-    path: 'userDetail/:email',
-    component: UserDetailComponent
-  },
-  {
-    path: 'users',
-    component: UsersComponent
-  }
+    {
+        path: 'voteParticipate/:id',
+        component: VoteParticipateComponent
+    },
+
+
+
+    {
+        path: 'userDetail/:email',
+        component: UserDetailComponent
+    },
+    {
+        path: 'users',
+        component: UsersComponent
+    }
 ];
 
 export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes)
+    provideRouter(routes)
 ];
 
 

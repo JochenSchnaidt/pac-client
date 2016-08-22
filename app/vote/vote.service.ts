@@ -32,7 +32,7 @@ export class VoteService {
  
     public getSingle = (id: string): Observable<Vote> => {
         return this.http.get(this.actionUrl + id)
-            .map((response: Response) => <Vote>response.json())
+            .map((response: Response) =>  <Vote>response.json())
             .catch(this.handleError); 
     }
   

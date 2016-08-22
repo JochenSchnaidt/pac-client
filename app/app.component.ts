@@ -3,6 +3,7 @@ import { ROUTER_DIRECTIVES }  from '@angular/router';
 
 import { UserService }        from './user/user.service';
 import { VoteService }        from './vote/vote.service';
+import { AuthenticationService }        from './authentication/authentication.service';
 
 @Component({
   selector: 'my-app',
@@ -20,7 +21,8 @@ import { VoteService }        from './vote/vote.service';
   directives: [ROUTER_DIRECTIVES],
   providers: [
     UserService,
-    VoteService
+    VoteService,
+    AuthenticationService
   ]
 })
 export class AppComponent {

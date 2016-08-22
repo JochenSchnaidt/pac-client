@@ -1,0 +1,13 @@
+
+<h3>Login</h3>
+
+<div *ngIf="authentication">
+	<div>
+		<input [(ngModel)]="authentication.email" placeholder="Email" />
+	</div>
+	<div>
+		<input [(ngModel)]="authentication.password" placeholder="Password" />
+	</div>
+	<button (click)="login()">Login</button>
+	<button (click)="cancel()">Cancel</button>
+</div>
