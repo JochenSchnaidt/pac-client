@@ -1,4 +1,4 @@
-import { Component, OnInit, Input }    from '@angular/core';
+import { Component, OnInit }        from '@angular/core';
 import { Router }                   from '@angular/router';
 
 import { User }                     from '../user/model/user';
@@ -31,33 +31,21 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
 
-        //        this.userService.getAll()
-        //            .subscribe((data: User[]) => this.users = data,
-        //            error => console.log(error),
-        //            () => console.log('On dashboard init: Get all users complete'));
-
         if (this.authenticationService.isAuthenticated()) {
 
-            this.userService.getSingle(this.authenticationService.getAuthentication().email)
-                .subscribe((data: User) => this.user = data,
-                error => console.log(error),
-                () => { console.log("User details loaded"); this.userService.setCurrentUser(this.user) });
+//            this.userService.getSingle(this.authenticationService.getAuthentication().email)
+//                .subscribe((data: User) => this.user = data,
+//                error => console.log(error),
+//                () => { console.log("User details loaded"); this.userService.setCurrentUser(this.user) });
 
             this.voteService.getAll()
                 .subscribe((data: Vote[]) => this.votes = data,
                 error => console.log(error),
-                () => console.log('On dashboard init: Get all votes complete'));
+                () => console.log("On dashboard init: Get all votes complete"));
 
         } else {
-
             console.error("user not authenticated");
-
         }
-
-
-        //   this.authentication = this.authenticationService.getAuthentication();
-
-        //     console.log("authentication: " + this.authentication.votingAuthenticationToken);
     }
 
     goToUserDetail(user: User) {

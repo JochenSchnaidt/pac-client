@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+<authentication></authentication>
+ <nav>
+      <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
+      <a [routerLink]="['/users']" routerLinkActive="active">Users</a>
+      <a [routerLink]="['/votes']" routerLinkActive="active">Votes</a>
+    </nav>
+<router-outlet></router-outlet> 
+<p>
+Basic informations...

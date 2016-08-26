@@ -1,33 +1,32 @@
 <div *ngIf="vote">
 	<h2>EDIT: {{vote.topic}}</h2>
-		
+
 	<div>
 		{{vote.id}}
-		<p>
-		editable: {{vote.editable}}
-	</div>
-		
-		
-	<div>
-		Topic: <input [(ngModel)]="vote.topic" placeholder="topic"/>
-	</div>
-		
-	<div>
-		Description: <input [(ngModel)]="vote.description" placeholder="description"/>
+		<p>editable: {{vote.editable}}
 	</div>
 
-	<ul class="selections">
-		<li *ngFor="let option of vote.options; #i = index">
-			<span class="option">
-				<div>
-					Option {{i}} <input [(ngModel)]="option.name"/>
-				</div>
-			</span>
+
+	<div>
+		Topic: <input [(ngModel)]="vote.topic" placeholder="topic" />
+	</div>
+
+	<div>
+		Description: <input [(ngModel)]="vote.description"
+			placeholder="description" />
+	</div>
+
+	<div>Options</div>
+	<ul>
+		<li *ngFor="let option of vote.options">
+			<div>
+				<input [(ngModel)]="option.name" />
+			</div>
 		</li>
 	</ul>
 
 	<div>
-		<label>Created from: </label>{{vote.createdBy}}
+		<label>Created from: </label>{{vote.createdByUsername}}
 	</div>
 	<div>
 		<label>Created on: </label>{{vote.creationDate}}
@@ -36,10 +35,3 @@
 	<button (click)="goBack()">Back</button>
 	<button *ngIf="vote.editable" (click)="save()">Save</button>
 </div>
-
-
-<!-- 
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
--->

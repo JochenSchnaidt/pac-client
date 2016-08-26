@@ -8,6 +8,7 @@ import { Observable }       from 'rxjs/Observable';
 
 import { User }             from './model/user';
 
+import { AuthenticationService }    from '../authentication/authentication.service';
 
 @Injectable()
 export class UserService {
@@ -17,13 +18,14 @@ export class UserService {
 
     private currentUser: User;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private authenticationService: AuthenticationService) {
 
         this.actionUrl = 'http://localhost:8080/user/';  // URL to web api
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
+        this.headers.append('X-AUTH-TOKEN', this.authenticationService.getToken());
     }
 
     public getAll = (): Observable<User[]> => {
@@ -62,6 +64,13 @@ export class UserService {
 
     public getCurrentUser() {
         return this.currentUser;
+    }
+
+    public updateCurrentUser() {
+        this.getSingle(this.currentUser.email)
+            .subscribe((data: User) => this.currentUser = data,
+            error => console.log(error),
+            () => console.log("User details updated"));
     }
 
 

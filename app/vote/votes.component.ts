@@ -1,48 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 
-import { Vote }                 from './model/vote';
-import { VoteService }          from './vote.service';
-import { VoteDetailComponent }  from './detail/vote-detail.component';
+import { Vote }                     from './model/vote';
+import { VoteService }              from './vote.service';
+import { VoteEditDetailComponent }  from './edit/vote-edit-detail.component';
+import { VoteShowDetailComponent }  from './show/vote-show-detail.component';
+import { VoteNewComponent }         from './new/vote-new.component';
 
-import { VoteNewComponent }  from './new/vote-new.component';
+import { AuthenticationService }    from '../authentication/authentication.service';
 
 @Component({
-  selector: 'my-votes',
-  templateUrl: 'app/vote/votes.component.html',
-  styleUrls:  ['app/vote/votes.component.css'],
-  directives: [VoteDetailComponent, VoteNewComponent]
+    selector: 'my-votes',
+    templateUrl: 'app/vote/votes.component.html',
+    styleUrls: ['app/vote/votes.component.css'],
+    directives: [VoteEditDetailComponent, VoteShowDetailComponent, VoteNewComponent]
 })
 export class VotesComponent implements OnInit {
-  votes: Vote[];
-  selectedVote: Vote;
-  addingVote = false;
-  error: any;
 
-  constructor(
-    private router: Router,
-    private voteService: VoteService) { }
+    votes: Vote[];
+    selectedVote: Vote;
+    error: any;
 
-  getVotes() {
-    this.voteService 
-        .getAll()
-        .subscribe((data:Vote[]) => this.votes = data,
-                error => console.log(error),
-                () => console.log('Get all votes completed'));
-  }
+    constructor(
+        private router: Router,
+        private voteService: VoteService,
+        private authenticationService: AuthenticationService) { }
 
-  addVote() {
-    this.addingVote = true;
-    this.selectedVote = null;
-  }
+    ngOnInit() {
 
-  close(savedVote: Vote) {
-    this.addingVote = false;
-    if (savedVote) { this.getVotes(); }
-  }
+        if (this.authenticationService.isAuthenticated()) {
+            this.getVotes();
+        } else {    
+            console.error("user not authenticated");
+        }
+    }
 
-  deleteVote(vote: Vote, event: any) {
-    event.stopPropagation();
+
+    private getVotes() {
+        this.voteService
+            .getAll()
+            .subscribe((data: Vote[]) => this.votes = data,
+            error => console.log(error),
+            () => console.log("Get all votes completed"));
+    }
+
+    private addVote() {
+        this.selectedVote = null;
+        console.log("create new vote");
+        this.router.navigate(['/voteNew']);
+    }
+
+    private deleteVote(vote: Vote, event: any) {
+        event.stopPropagation();
    /* this.voteService
         .delete(vote)
         .then(res => {
@@ -52,31 +61,10 @@ export class VotesComponent implements OnInit {
         .catch(error => this.error = error);
   */}
 
-  ngOnInit() {
-    this.getVotes();
-  }
+    private onSelect(vote: Vote) {
+        this.selectedVote = vote;
+        console.log("show vote");
+        this.router.navigate(['/voteShowDetail', this.selectedVote.id]);
+    }
 
-  onSelect(vote : Vote) {
-    this.selectedVote = vote;
-    this.addingVote = false;
-  }
-
-  editVote() {
-               console.log('edit vote');       
-    this.router.navigate(['/voteDetail', this.selectedVote.id]);
-  }
-    
-     participateVote() {
-                  console.log('participate in vote');       
-    this.router.navigate(['/voteParticipate', this.selectedVote.id]);       
-
-  }
-    
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

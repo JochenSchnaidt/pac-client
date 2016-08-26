@@ -1,0 +1,49 @@
+<div *ngIf="vote">
+	<h2>SHOW: {{vote.topic}}</h2>
+
+	<div>
+		{{vote.id}}
+		<p>editable: {{vote.editable}}
+	</div>
+
+
+	<div>Topic: {{vote.topic}}</div>
+
+	<div>Description: {{vote.description}}</div>
+
+	<div *ngIf="userHasAlreadyVoted()">
+		<hr />
+		<ul>
+			<li *ngFor="let option of percentages">
+				<div>{{option.name}}</div>
+			</li>
+		</ul>
+	</div>
+
+	<div *ngIf="!userHasAlreadyVoted()">
+		<hr />
+		<ul>
+			<li *ngFor="let option of vote.options">
+				<div>{{option.name}}</div>
+			</li>
+		</ul>
+	</div>
+
+	<hr />
+
+	<div>
+		<label>Created from: </label>{{vote.createdByUserName}}
+	</div>
+	<div>
+		<label>Created on: </label>{{vote.creationDate}}
+	</div>
+
+	<hr />
+
+	<div>
+		<button (click)="participateVote()">Participate</button>
+		<button *ngIf="vote.editable" (click)="editVote()">Edit Details</button>
+		<button *ngIf="isDeletable()" class="delete-button" (click)="deleteVote()">Delete</button>
+		<button (click)="goBack()">Back</button>
+	</div>
+</div>

@@ -1,26 +1,21 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter }          from '@angular/core';
+import { ActivatedRoute, Router }           from '@angular/router';
 
-import { ActivatedRoute } from '@angular/router';
+//import {CORE_DIRECTIVES, FORM_DIRECTIVES}   from '@angular/common';
 
+import { Vote }             from '../model/vote';
+import { Option }           from '../model/option';
+import { VoteService }      from '../vote.service';
 
-
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
-
-
-
-import { Vote }               from '../model/vote';
-import { Option }               from '../model/option';
-import { VoteService }        from '../vote.service';
+import { UserService }      from './../../user/user.service';
 
 @Component({
     selector: 'new-vote',
     templateUrl: 'app/vote/new/vote-new.component.html',
     styleUrls: ['app/vote/new/vote-new.component.css'],
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]
+//    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class VoteNewComponent {
-
-    @Output() close = new EventEmitter();
 
     vote = new Vote();
 
@@ -28,54 +23,46 @@ export class VoteNewComponent {
     option2 = new Option();
     option3 = new Option();
 
-
-
-    error: any;
-    sub: any;
-    navigated = false; // true if navigated here
-
     constructor(
         private voteService: VoteService,
+        private userService: UserService,
+        private router: Router,
         private route: ActivatedRoute) {
 
-                this.vote.options = new Array <Option>();
-        
+        this.vote.options = new Array<Option>();
+
+        this.option1.id = 'option_1';
+        this.option1.counter = 0;
+        this.option2.id = 'option_2';
+        this.option2.counter = 0;
+        this.option3.id = 'option_3';
+        this.option3.counter = 0;
+
         this.vote.options[0] = this.option1;
-           this.vote.options[1] = this.option2;
-           this.vote.options[2] = this.option3;
-        
+        this.vote.options[1] = this.option2;
+        this.vote.options[2] = this.option3;
 
         console.log("Form Component Start");
     }
 
-
-
-
     save() {
-        
-        this.vote.createdBy = 'Jochen Schnaidt';
+
+        this.vote.createdBy = this.userService.getCurrentUser().id;
+        this.vote.createdByUserName = this.userService.getCurrentUser().firstName + ' ' + this.userService.getCurrentUser().lastName;
         this.vote.editable = true;
-        
-        
+
         this.voteService
             .add(this.vote)
             .subscribe(vote => {
-                this.vote = vote; // saved hero, w/ id if new
-                this.goBack(vote);
+                this.vote = vote;
+                this.goBack();
             },
             error => console.log(error),
-            () => console.log('Error while vote creation'));
+            () => console.log("Error while vote creation"));
     }
 
-    goBack(savedVote: Vote = null) {
-        this.close.emit(savedVote);
-        if (this.navigated) { window.history.back(); }
+    goBack() {
+        window.history.back();
     }
+
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

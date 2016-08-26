@@ -1,9 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
+//import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router }       from '@angular/router';
 
-import { ActivatedRoute } from '@angular/router';
 
-import { Vote }               from '../model/vote';
-import { VoteService }        from '../vote.service';
+import { Vote }         from '../model/vote';
+import { Voting }       from '../model/voting';
+import { VoteService }  from '../vote.service';
+
+import { UserService }  from './../../user/user.service';
 
 @Component({
     selector: 'my-vote-participate',
@@ -11,14 +15,20 @@ import { VoteService }        from '../vote.service';
     styleUrls: ['app/vote/participate/vote-participate.component.css']
 })
 export class VoteParticipateComponent implements OnInit, OnDestroy {
-    @Input() vote: Vote;
-    @Output() close = new EventEmitter();
+//    @Input() vote: Vote;
+//    @Output() close = new EventEmitter();
+
+    vote : Vote;
+    
     error: any;
     sub: any;
+
     navigated = false; // true if navigated here
 
     constructor(
         private voteService: VoteService,
+        private userService: UserService,
+        private router: Router,
         private route: ActivatedRoute) {
     }
 
@@ -32,7 +42,7 @@ export class VoteParticipateComponent implements OnInit, OnDestroy {
                     .getSingle(params['id'])
                     .subscribe((data: Vote) => this.vote = data,
                     error => console.log(error),
-                    () => console.log('Get vote details completed'));
+                    () => console.log("Get vote details completed"));
 
             } else {
                 this.navigated = false;
@@ -45,33 +55,58 @@ export class VoteParticipateComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    save() {
-//        this.voteService
-//            .update(this.vote)
-//
-//            .subscribe(vote => {
-//                this.vote = vote; // saved hero, w/ id if new
-//                this.goBack(vote);
-//            },
-//            error => console.log(error),
-//            () => console.log('Get all Items complete'));
+    addVoting(votedOption: string) {
 
+        console.log("selected option: " + votedOption);
 
-        //        .then(vote => {
-        //          this.vote = vote; // saved hero, w/ id if new
-        //          this.goBack(vote);
-        //        })
-        //        .catch(error => this.error = error); // TODO: Display error message
+        let updatedVote: Vote;
+
+        let voting = new Voting();
+        voting.voteId = this.vote.id;
+        voting.userId = this.userService.getCurrentUser().id;
+        voting.optionId = votedOption;
+
+        if (this.userHasAlreadyVoted) {
+            this.voteService
+                .updateVoting(voting)
+                .subscribe((data: Vote) => updatedVote = data,
+                error => console.log(error),
+                () => {
+                    this.userService.updateCurrentUser();
+                    this.showStanding()
+                });
+        } else {
+            this.voteService
+                .addVoting(voting)
+                .subscribe((data: Vote) => updatedVote = data,
+                error => console.log(error),
+                () => {
+                    this.userService.updateCurrentUser();
+                    this.showStanding()
+                });
+        }
     }
+
+    private userHasAlreadyVoted() {
+
+        for (let selection of this.userService.getCurrentUser().selections) {
+            if (selection.voteId == this.vote.id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private showStanding() {
+        console.log("showStanding called");
+
+        let link = ['/voteShowDetail', this.vote.id];
+        this.router.navigate(link);
+    }
+
     goBack(savedVote: Vote = null) {
-        this.close.emit(savedVote);
+//        this.close.emit(savedVote);
         if (this.navigated) { window.history.back(); }
     }
+
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

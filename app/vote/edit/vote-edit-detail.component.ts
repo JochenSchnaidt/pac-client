@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy }    from '@angular/core';
+import { ActivatedRoute }                  from '@angular/router';
 
 import { Vote }               from '../model/vote';
 import { VoteService }        from '../vote.service';
@@ -11,9 +10,9 @@ import { VoteService }        from '../vote.service';
     styleUrls: ['app/vote/edit/vote-edit-detail.component.css']
 })
 export class VoteEditDetailComponent implements OnInit, OnDestroy {
-    @Input() vote: Vote;
-    @Output() close = new EventEmitter();
-    
+
+    vote: Vote;
+
     error: any;
     sub: any;
     navigated = false; // true if navigated here
@@ -49,24 +48,15 @@ export class VoteEditDetailComponent implements OnInit, OnDestroy {
     save() {
         this.voteService
             .update(this.vote)
-
             .subscribe(vote => {
-                this.vote = vote; // saved hero, w/ id if new
+                this.vote = vote;
                 this.goBack(vote);
             },
             error => console.log(error),
-            () => console.log('Vote saved'));
-
+            () => console.log("vote updated"));
     }
+
     goBack(savedVote: Vote = null) {
-        this.close.emit(savedVote);
         if (this.navigated) { window.history.back(); }
     }
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

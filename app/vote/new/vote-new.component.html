@@ -1,7 +1,6 @@
 <div *ngIf="vote">
 	<h2>Create a new vote</h2>
 	
-	
 	<div>
 		Topic: <input [(ngModel)]="vote.topic" placeholder="topic"/>
 	</div>
@@ -9,31 +8,22 @@
 	<div>
 		Description: <input [(ngModel)]="vote.description" placeholder="description"/>
 	</div>
- 
- 	<ul class="selections">
-		<li  >
- 
-				<div>
-					Option 1: <input [(ngModel)]="vote.options[0].name"/>
-				</div>
 
-				<div>
-					Option 2: <input [(ngModel)]="vote.options[1].name"/>
-				</div>
+	<ul>
+		<li>
+			<div>
+				Option 1: <input [(ngModel)]="vote.options[0].name" />
+			</div>
 
-				<div>
-					Option 3: <input [(ngModel)]="vote.options[2].name"/>
-				</div>
- 
+			<div>
+				Option 2: <input [(ngModel)]="vote.options[1].name" />
+			</div>
+
+			<div>
+				Option 3: <input [(ngModel)]="vote.options[2].name" />
+			</div>
 		</li>
-	</ul>  
-
-	<div>
-		<label>Created from: </label>{{vote.createdBy}}
-	</div>
-	<div>
-		<label>Created on: </label>{{vote.creationDate}}
-	</div>
+	</ul>
 
 	<button (click)="goBack()">Back</button>
 	<button (click)="save()">Save</button>

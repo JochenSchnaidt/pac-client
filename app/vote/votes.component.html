@@ -1,30 +1,22 @@
 <h3>Existing votes</h3>
 <ul class="votes">
 	<li *ngFor="let vote of votes" (click)="onSelect(vote)" [class.selected]="vote === selectedVote">
-	  	<span class="vote-element">
+	  	<span>
 	  	{{vote.topic}} 
-		<!-- 	<span class="badge">{{vote.topic}}</span> -->
  		</span>  
 	</li>
 </ul>
 
 <div class="error" *ngIf="error">{{error}}</div>
 <button (click)="addVote()">Add New Vote</button>
-<div *ngIf="addingVote">
+<!-- <div *ngIf="addingVote">
 	<new-vote (close)="close($event)"></new-vote>
-</div>
+</div> -->
 
-<div class="space-on-top"></div>
+<!-- <div class="space-on-top"></div>
 <div *ngIf="selectedVote">
 	<h3>Currently selected vote: {{selectedVote.topic}}</h3>
 	<button (click)="participateVote()">Participate</button>
 	<button *ngIf="selectedVote.editable" (click)="editVote()">Edit Details</button>
 	<button *ngIf="selectedVote.editable" class="delete-button" (click)="deleteVote(vote, $event)">Delete</button>
-</div>
-
-
-<!-- 
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
--->
+</div> -->

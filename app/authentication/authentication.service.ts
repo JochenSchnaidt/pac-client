@@ -15,6 +15,8 @@ export class AuthenticationService {
     private headers: Headers;
 
     private authentication: Authentication;
+    private authenticated = false;
+    private token: string;
 
     constructor(private http: Http) {
         this.actionUrl = 'http://localhost:8080/auth/';
@@ -24,36 +26,34 @@ export class AuthenticationService {
         this.headers.append('Accept', 'application/json');
     }
 
-
     public authenticate = (auth: Authentication): Observable<Authentication> => {
         return this.http.post(this.actionUrl, JSON.stringify(auth), { headers: this.headers })
-            .map((response: Response) => <Authentication>response.json())
+            .map((response: Response) => {
+                console.log("xauthtoken: " + response.headers.get('X-AUTH-TOKEN'));
+                this.storeAuthentication(response.headers.get('X-AUTH-TOKEN'));
+            })
             .catch(this.handleError);
-
     }
-
+    
     private handleError(error: Response) {
         console.error(error);
-        this.setAuthentication(null);
+        this.authentication = null;
+        this.authenticated = false;
+        this.token = null;
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    public setAuthentication(auth: Authentication) {
-        this.authentication = auth;
-    }
-
-    public getAuthentication() {
-        return this.authentication;
+    private storeAuthentication(token: string) {
+        this.authenticated = true;
+        this.token = token;
     }
 
     public isAuthenticated() {
-        if (typeof this.authentication === 'undefined' || this.authentication === null) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.authenticated;
     }
-
-
+    
+       public getToken() {
+        return this.token;
+    }
 
 }

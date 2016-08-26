@@ -8,4 +8,5 @@ export class Vote {
     editable: boolean;
     createdBy: string;
     creationDate: string;
+    createdByUserName: string;
 }
