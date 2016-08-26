@@ -7,12 +7,13 @@ import { VoteService }        from '../vote.service';
 
 @Component({
     selector: 'my-vote-detail',
-    templateUrl: 'app/vote/detail/vote-detail.component.html',
-    styleUrls: ['app/vote/detail/vote-detail.component.css']
+    templateUrl: 'app/vote/edit/vote-edit-detail.component.html',
+    styleUrls: ['app/vote/edit/vote-edit-detail.component.css']
 })
-export class VoteDetailComponent implements OnInit, OnDestroy {
+export class VoteEditDetailComponent implements OnInit, OnDestroy {
     @Input() vote: Vote;
     @Output() close = new EventEmitter();
+    
     error: any;
     sub: any;
     navigated = false; // true if navigated here
@@ -32,7 +33,7 @@ export class VoteDetailComponent implements OnInit, OnDestroy {
                     .getSingle(params['id'])
                     .subscribe((data: Vote) => this.vote = data,
                     error => console.log(error),
-                    () => console.log('Get vote details completed'));
+                    () => console.log("Get vote details to edit completed"));
 
             } else {
                 this.navigated = false;
@@ -54,7 +55,7 @@ export class VoteDetailComponent implements OnInit, OnDestroy {
                 this.goBack(vote);
             },
             error => console.log(error),
-            () => console.log('Get all Items complete'));
+            () => console.log('Vote saved'));
 
     }
     goBack(savedVote: Vote = null) {

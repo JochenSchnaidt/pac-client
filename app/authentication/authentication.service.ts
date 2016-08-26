@@ -14,6 +14,8 @@ export class AuthenticationService {
     private actionUrl: string;
     private headers: Headers;
 
+    private authentication: Authentication;
+
     constructor(private http: Http) {
         this.actionUrl = 'http://localhost:8080/auth/';
 
@@ -27,10 +29,31 @@ export class AuthenticationService {
         return this.http.post(this.actionUrl, JSON.stringify(auth), { headers: this.headers })
             .map((response: Response) => <Authentication>response.json())
             .catch(this.handleError);
+
     }
 
     private handleError(error: Response) {
         console.error(error);
+        this.setAuthentication(null);
         return Observable.throw(error.json().error || 'Server error');
     }
+
+    public setAuthentication(auth: Authentication) {
+        this.authentication = auth;
+    }
+
+    public getAuthentication() {
+        return this.authentication;
+    }
+
+    public isAuthenticated() {
+        if (typeof this.authentication === 'undefined' || this.authentication === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
 }
