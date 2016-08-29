@@ -1,12 +1,9 @@
-import { Component, EventEmitter }          from '@angular/core';
-import { ActivatedRoute, Router }           from '@angular/router';
-
-//import {CORE_DIRECTIVES, FORM_DIRECTIVES}   from '@angular/common';
+import { Component, EventEmitter }   from '@angular/core';
+import { ActivatedRoute, Router }    from '@angular/router';
 
 import { Vote }             from '../model/vote';
 import { Option }           from '../model/option';
 import { VoteService }      from '../vote.service';
-
 import { UserService }      from './../../user/user.service';
 
 @Component({
@@ -45,7 +42,7 @@ export class VoteNewComponent {
         console.log("Form Component Start");
     }
 
-    save() {
+   private  save() {
 
         this.vote.createdBy = this.userService.getCurrentUser().id;
         this.vote.createdByUserName = this.userService.getCurrentUser().firstName + ' ' + this.userService.getCurrentUser().lastName;
@@ -61,7 +58,7 @@ export class VoteNewComponent {
             () => console.log("Error while vote creation"));
     }
 
-    goBack() {
+    private goBack() {
         window.history.back();
     }
 

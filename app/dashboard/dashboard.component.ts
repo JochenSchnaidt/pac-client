@@ -18,8 +18,6 @@ import { AuthenticationService }    from '../authentication/authentication.servi
 export class DashboardComponent implements OnInit {
 
     user: User;
-
-    users: User[] = [];
     votes: Vote[] = [];
 
     constructor(
@@ -33,11 +31,6 @@ export class DashboardComponent implements OnInit {
 
         if (this.authenticationService.isAuthenticated()) {
 
-//            this.userService.getSingle(this.authenticationService.getAuthentication().email)
-//                .subscribe((data: User) => this.user = data,
-//                error => console.log(error),
-//                () => { console.log("User details loaded"); this.userService.setCurrentUser(this.user) });
-
             this.voteService.getAll()
                 .subscribe((data: Vote[]) => this.votes = data,
                 error => console.log(error),
@@ -48,12 +41,12 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    goToUserDetail(user: User) {
+    private goToUserDetail(user: User) {
         let link = ['/userDetail', user.email];
         this.router.navigate(link);
     }
 
-    goToVoteDetail(vote: Vote) {
+    private goToVoteDetail(vote: Vote) {
         let link = ['/voteShowDetail', vote.id];
         this.router.navigate(link);
     }

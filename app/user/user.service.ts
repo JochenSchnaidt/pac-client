@@ -1,60 +1,68 @@
-import { Injectable }               from '@angular/core';
-import { Http, Response, Headers }  from '@angular/http';
+import { Injectable }                             from '@angular/core';
+import { Http, Response, Headers, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 
-import { Observable }       from 'rxjs/Observable';
+import { Observable }               from 'rxjs/Observable';
 
-import { User }             from './model/user';
-
+import { User }                     from './model/user';
 import { AuthenticationService }    from '../authentication/authentication.service';
 
 @Injectable()
 export class UserService {
 
-    private actionUrl: string;
-    private headers: Headers;
-
     private currentUser: User;
 
-    constructor(private http: Http, private authenticationService: AuthenticationService) {
+    private actionUrl: string;
+    private headers: Headers;
+    private options: RequestOptions;
 
-        this.actionUrl = 'http://localhost:8080/user/';  // URL to web api
+    constructor(private http: Http,
+        private authenticationService: AuthenticationService) {
+        this.actionUrl = 'http://localhost:8080/';  // URL to web api
+    }
 
+    private prepareHeader() {
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
         this.headers.append('X-AUTH-TOKEN', this.authenticationService.getToken());
+        this.options = new RequestOptions({ headers: this.headers });
     }
 
+
     public getAll = (): Observable<User[]> => {
-        return this.http.get(this.actionUrl + 'all/', { headers: this.headers })
+        this.prepareHeader();
+        return this.http.get(this.actionUrl + 'user/all/', this.options)
             .map((response: Response) => <User[]>response.json())
             .catch(this.handleError);
     }
 
     public getSingle = (email: string): Observable<User> => {
-        return this.http.get(this.actionUrl + email)
+        this.prepareHeader();
+        return this.http.get(this.actionUrl + 'user/' + email, this.options)
             .map((response: Response) => <User>response.json())
             .catch(this.handleError);
     }
 
     public add = (newUser: User): Observable<User> => {
-
-        return this.http.post(this.actionUrl, JSON.stringify(newUser), { headers: this.headers })
+        this.prepareHeader();
+        return this.http.post(this.actionUrl + 'user/', JSON.stringify(newUser), this.options)
             .map((response: Response) => <User>response.json())
             .catch(this.handleError);
     }
 
     public update = (updatedUser: User): Observable<User> => {
-        return this.http.put(this.actionUrl, JSON.stringify(updatedUser), { headers: this.headers })
+        this.prepareHeader();
+        return this.http.put(this.actionUrl + 'user/', JSON.stringify(updatedUser), this.options)
             .map((response: Response) => <User>response.json())
             .catch(this.handleError);
     }
 
     public delete = (updatedUser: User): Observable<Response> => {
-        return this.http.delete(this.actionUrl + updatedUser.id, { headers: this.headers })
+        this.prepareHeader();
+        return this.http.delete(this.actionUrl + 'user/' + updatedUser.id, this.options)
             .catch(this.handleError);
     }
 
@@ -72,7 +80,6 @@ export class UserService {
             error => console.log(error),
             () => console.log("User details updated"));
     }
-
 
     private handleError(error: Response) {
         console.error(error);

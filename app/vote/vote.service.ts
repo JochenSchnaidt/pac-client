@@ -16,60 +16,65 @@ export class VoteService {
 
     private actionUrl: string;
     private headers: Headers;
+    private options: RequestOptions;
 
     constructor(private http: Http, private authenticationService: AuthenticationService) {
+        this.actionUrl = 'http://localhost:8080/';  // URL to web api
+    }
 
-        this.actionUrl = 'http://localhost:8080/vote/';  // URL to web api
-
+    private prepareHeader() {
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
         this.headers.append('X-AUTH-TOKEN', this.authenticationService.getToken());
-        
-   
+        this.options = new RequestOptions({ headers: this.headers });
     }
 
     public getAll = (): Observable<Vote[]> => {
-        
-        let options = new RequestOptions({ headers: this.headers });
-        
-        return this.http.get(this.actionUrl + 'all/', options)
+        this.prepareHeader();
+        return this.http.get(this.actionUrl + 'vote/all/', this.options)
             .map((response: Response) => <Vote[]>response.json())
             .catch(this.handleError);
     }
 
     public getSingle = (id: string): Observable<Vote> => {
-        return this.http.get(this.actionUrl + id)
+        this.prepareHeader();
+        return this.http.get(this.actionUrl + 'vote/' + id, this.options)
             .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 
     public add = (newVote: Vote): Observable<Vote> => {
-        return this.http.post(this.actionUrl, JSON.stringify(newVote), { headers: this.headers })
+        this.prepareHeader();
+        return this.http.post(this.actionUrl + 'vote/', JSON.stringify(newVote), this.options)
             .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 
     public addVoting = (voting: Voting): Observable<Vote> => {
-        return this.http.post('http://localhost:8080/voting/', JSON.stringify(voting), { headers: this.headers })
+        this.prepareHeader();
+        return this.http.post(this.actionUrl + 'voting/', JSON.stringify(voting), this.options)
             .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 
     public updateVoting = (voting: Voting): Observable<Vote> => {
-        return this.http.put('http://localhost:8080/voting/', JSON.stringify(voting), { headers: this.headers })
+        this.prepareHeader();
+        return this.http.put(this.actionUrl + 'voting/', JSON.stringify(voting), this.options)
             .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 
     public update = (updatedVote: Vote): Observable<Vote> => {
-        return this.http.put(this.actionUrl, JSON.stringify(updatedVote), { headers: this.headers })
+        this.prepareHeader();
+        return this.http.put(this.actionUrl + 'vote/', JSON.stringify(updatedVote), this.options)
             .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 
     public delete = (updatedVote: Vote): Observable<Response> => {
-        return this.http.delete(this.actionUrl + updatedVote.id, { headers: this.headers })
+        this.prepareHeader();
+        return this.http.delete(this.actionUrl + 'vote/' + updatedVote.id, this.options)
             .catch(this.handleError);
     }
 

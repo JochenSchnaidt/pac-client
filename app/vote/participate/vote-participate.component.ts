@@ -1,12 +1,9 @@
-//import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router }       from '@angular/router';
-
 
 import { Vote }         from '../model/vote';
 import { Voting }       from '../model/voting';
 import { VoteService }  from '../vote.service';
-
 import { UserService }  from './../../user/user.service';
 
 @Component({
@@ -15,11 +12,7 @@ import { UserService }  from './../../user/user.service';
     styleUrls: ['app/vote/participate/vote-participate.component.css']
 })
 export class VoteParticipateComponent implements OnInit, OnDestroy {
-//    @Input() vote: Vote;
-//    @Output() close = new EventEmitter();
-
     vote : Vote;
-    
     error: any;
     sub: any;
 
@@ -104,8 +97,7 @@ export class VoteParticipateComponent implements OnInit, OnDestroy {
         this.router.navigate(link);
     }
 
-    goBack(savedVote: Vote = null) {
-//        this.close.emit(savedVote);
+    private goBack(savedVote: Vote = null) {
         if (this.navigated) { window.history.back(); }
     }
 

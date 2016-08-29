@@ -15,7 +15,7 @@ import { UserService }              from '../user/user.service';
 export class AuthenticationComponent implements OnInit {
 
     authentication: Authentication;
-    email : string;
+    email: string;
     user: User;
 
     constructor(
@@ -30,37 +30,37 @@ export class AuthenticationComponent implements OnInit {
         console.log("authentication loaded")
     }
 
-    login() {
+    private login() {
         console.log("login: " + this.authentication.email);
-        
+
         this.email = this.authentication.email;
 
         this.authenticationService.authenticate(this.authentication)
             .subscribe((data: Authentication) => this.authentication = data,
             error => console.log(error),
-            () => { console.log("Authentication successful"); this.loadUser(); });
+            () => {
+                console.log("Authentication successful");
+                this.loadUser();
+            });
     }
 
     private loadUser() {
 
-        if (this.authenticationService.isAuthenticated()) {
+        this.userService.getSingle(this.email)
+            .subscribe((data: User) => this.user = data,
+            error => console.log(error),
+            () => {
+                console.log("User details loaded");
+                this.userService.setCurrentUser(this.user);
+                this.authenticationService.setAuthenticated();
 
-            this.userService.getSingle(this.email)
-                .subscribe((data: User) => this.user = data,
-                error => console.log(error),
-                () => { console.log("User details loaded"); this.userService.setCurrentUser(this.user) });
-
-            let link = ['./dashboard'];
-            this.router.navigate(link);
-
-        } else {
-            // Do error stuff
-            console.log("No authentication");
-        }
+                let link = ['./dashboard'];
+                this.router.navigate(link);
+            });
     }
 
-    cancel() {
-        console.log("cancel")
+    private cancel() {
+        console.log("login canceled")
         this.authentication.email = '';
         this.authentication.password = '';
     }

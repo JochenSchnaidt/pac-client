@@ -45,7 +45,7 @@ export class VoteEditDetailComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    save() {
+    private save() {
         this.voteService
             .update(this.vote)
             .subscribe(vote => {
@@ -56,7 +56,7 @@ export class VoteEditDetailComponent implements OnInit, OnDestroy {
             () => console.log("vote updated"));
     }
 
-    goBack(savedVote: Vote = null) {
+ private   goBack(savedVote: Vote = null) {
         if (this.navigated) { window.history.back(); }
     }
 }
