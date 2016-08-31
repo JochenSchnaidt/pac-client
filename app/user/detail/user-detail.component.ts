@@ -45,33 +45,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    save() {
-//        this.userService
-//            .update(this.user)
-//
-//            .subscribe(user => {
-//                this.user = user; // saved hero, w/ id if new
-//                this.goBack(user);
-//            },
-//            error => console.log(error),
-//            () => console.log('Get all Items complete'));
-
-
-        //        .then(user => {
-        //          this.user = user; // saved hero, w/ id if new
-        //          this.goBack(user);
-        //        })
-        //        .catch(error => this.error = error); // TODO: Display error message
+    private save() {
+        console.log("not yet implemented");
     }
-    goBack(savedUser: User = null) {
+
+    private goBack(savedUser: User = null) {
         this.close.emit(savedUser);
         if (this.navigated) { window.history.back(); }
     }
 }
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

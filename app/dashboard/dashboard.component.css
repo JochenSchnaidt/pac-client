@@ -8,11 +8,6 @@
 	box-sizing: border-box;
 }
 
-h3 {
-	text-align: center;
-	margin-bottom: 0;
-}
-
 [class*='col-'] {
 	padding-right: 20px;
 	padding-bottom: 20px;
@@ -33,21 +28,27 @@ h3 {
 .module {
 	padding: 20px;
 	text-align: center;
-	color: #eee;
 	max-height: 120px;
 	min-width: 120px;
-	background-color: #607D8B;
+	background-color: #369;
 	border-radius: 2px;
 }
 
 h4 {
 	position: relative;
+	color: white;
 }
 
 .module:hover {
-	background-color: #EEE;
+	background-color: #CFD8DC;
 	cursor: pointer;
-	color: #607d8b;
+	color: #369;
+}
+
+.module:hover h4 {
+	background-color: #CFD8DC;
+	cursor: pointer;
+	color: #369;
 }
 
 .grid-pad {

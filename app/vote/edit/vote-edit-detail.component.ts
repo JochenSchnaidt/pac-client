@@ -56,7 +56,7 @@ export class VoteEditDetailComponent implements OnInit, OnDestroy {
             () => console.log("vote updated"));
     }
 
- private   goBack(savedVote: Vote = null) {
+    private goBack(savedVote: Vote = null) {
         if (this.navigated) { window.history.back(); }
     }
 }

@@ -9,8 +9,7 @@ import { UserService }      from './../../user/user.service';
 @Component({
     selector: 'new-vote',
     templateUrl: 'app/vote/new/vote-new.component.html',
-    styleUrls: ['app/vote/new/vote-new.component.css'],
-//    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]
+    styleUrls: ['app/vote/new/vote-new.component.css']
 })
 export class VoteNewComponent {
 
@@ -42,7 +41,7 @@ export class VoteNewComponent {
         console.log("Form Component Start");
     }
 
-   private  save() {
+    private save() {
 
         this.vote.createdBy = this.userService.getCurrentUser().id;
         this.vote.createdByUserName = this.userService.getCurrentUser().firstName + ' ' + this.userService.getCurrentUser().lastName;

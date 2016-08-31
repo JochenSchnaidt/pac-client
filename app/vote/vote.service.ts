@@ -72,9 +72,10 @@ export class VoteService {
             .catch(this.handleError);
     }
 
-    public delete = (updatedVote: Vote): Observable<Response> => {
+    public delete = (deletableVote: Vote): Observable<Response> => {
         this.prepareHeader();
-        return this.http.delete(this.actionUrl + 'vote/' + updatedVote.id, this.options)
+        return this.http.delete(this.actionUrl + 'vote/' + deletableVote.id, this.options)
+            .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 

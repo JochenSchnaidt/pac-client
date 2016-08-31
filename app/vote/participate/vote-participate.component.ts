@@ -48,7 +48,7 @@ export class VoteParticipateComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    addVoting(votedOption: string) {
+   private addVoting(votedOption: string) {
 
         console.log("selected option: " + votedOption);
 

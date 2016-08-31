@@ -1,10 +1,12 @@
 <div *ngIf="vote">
-	<h2>Create a new vote</h2>
-	
+	<h3>Create a new vote</h3>
+	<p>
 	<div>
-		Topic: <input [(ngModel)]="vote.topic" placeholder="topic"/>
+		To create a new vote, just fill out the fields beneath.
 	</div>
-		
+
+		<input [(ngModel)]="vote.topic" placeholder="topic"/>
+			
 	<div>
 		Description: <input [(ngModel)]="vote.description" placeholder="description"/>
 	</div>

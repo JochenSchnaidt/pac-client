@@ -15,7 +15,7 @@ import { VoteParticipateComponent }     from './vote/participate/vote-participat
 
 export const routes: RouterConfig = [
     {
-        path: '', 
+        path: '',
         redirectTo: '/authentication',
         //      redirectTo: '/dashboard',
         pathMatch: 'full'
@@ -62,10 +62,3 @@ export const routes: RouterConfig = [
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes)
 ];
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

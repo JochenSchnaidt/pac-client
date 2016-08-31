@@ -17,7 +17,8 @@ export class AuthenticationService {
     private authentication: Authentication;
     private authenticated = false;
     private token: string;
-
+    private error: string;
+    
     constructor(private http: Http) {
         this.actionUrl = 'http://localhost:8080/auth/';
 

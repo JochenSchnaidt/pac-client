@@ -7,6 +7,7 @@
 	<div>
 		<input [(ngModel)]="authentication.password" placeholder="Password" />
 	</div>
+	<div class="error" *ngIf="error">{{error}}</div>
 	<button (click)="login()">Login</button>
 	<button (click)="cancel()">Cancel</button>
 </div>

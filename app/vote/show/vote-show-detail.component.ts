@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router }       from '@angular/router';
+import { Response }                     from '@angular/http';
 
 import { Vote }             from '../model/vote';
-import { Option }             from '../model/option';
+import { Option }           from '../model/option';
 import { VoteService }      from '../vote.service';
-
 import { UserService }      from './../../user/user.service';
 
 @Component({
@@ -118,13 +118,21 @@ export class VoteShowDetailComponent implements OnInit, OnDestroy {
 
             this.percentages.push(o);
         }
-
     }
 
-
-
     private deleteVote() {
-        console.log("delete vote: NOT YET IMPLEMENTED" + this.vote.id);
+
+        let response: Response;
+
+        this.voteService
+            .delete(this.vote)
+            .subscribe((data: Response) => response = data,
+            error => console.log(error),
+            () => {
+                console.log("Vote deleted");
+                let link = ['/votes'];
+                this.router.navigate(link);
+            });
     }
 
     private goBack() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
+ 
 
 import { Vote }                     from './model/vote';
 import { VoteService }              from './vote.service';
@@ -30,7 +31,7 @@ export class VotesComponent implements OnInit {
 
         if (this.authenticationService.isAuthenticated()) {
             this.getVotes();
-        } else {    
+        } else {
             console.error("user not authenticated");
         }
     }
@@ -50,16 +51,7 @@ export class VotesComponent implements OnInit {
         this.router.navigate(['/voteNew']);
     }
 
-    private deleteVote(vote: Vote, event: any) {
-        event.stopPropagation();
-   /* this.voteService
-        .delete(vote)
-        .then(res => {
-          this.votes = this.votes.filter(u => u !== vote);
-          if (this.selectedVote === vote) { this.selectedVote = null; }
-        })
-        .catch(error => this.error = error);
-  */}
+
 
     private onSelect(vote: Vote) {
         this.selectedVote = vote;

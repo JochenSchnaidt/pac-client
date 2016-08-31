@@ -1,4 +1,4 @@
-import { Component, OnInit, Output }        from '@angular/core';
+import { Component, OnInit }        from '@angular/core';
 import { Router }                   from '@angular/router';
 
 import { Authentication }           from './model/authentication';
@@ -10,7 +10,7 @@ import { UserService }              from '../user/user.service';
 @Component({
     selector: 'authentication',
     templateUrl: 'app/authentication/authentication.component.html',
-    //    styleUrls: ['app/vote/detail/vote-detail.component.css']
+    styleUrls: ['app/authentication/authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
 

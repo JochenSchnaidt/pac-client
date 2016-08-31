@@ -45,7 +45,7 @@
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
 }
-button {
+/* button {
   font-family: Arial;
   background-color: #eee;
   border: none;
@@ -56,11 +56,4 @@ button {
 }
 button:hover {
   background-color: #cfd8dc;
-}
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+} */

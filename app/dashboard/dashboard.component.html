@@ -1,7 +1,7 @@
 <h3>Latest Votings</h3>
 <div class="grid grid-pad">
 	<div *ngFor="let vote of votes" (click)="goToVoteDetail(vote)" class="col-1-4">
-		<div class="module vote">
+		<div class="module">
 			<h4>{{vote.topic}}</h4>
 		</div>
 	</div>
