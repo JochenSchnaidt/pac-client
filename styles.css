@@ -1,13 +1,13 @@
 /* Master Styles */
 h1 {
-	/* 	color: #369; */
-	font-family: Arial, Helvetica, sans-serif;
+	color: #369;
+	font-family: Arial;
 	font-size: 1.8em;
 }
 
 h2, h3 {
-	/* color: #369; */
-	font-family: Arial, Helvetica, sans-serif;
+	color: #369;
+	font-family: Arial;
 	font-weight: lighter;
 }
 
@@ -44,8 +44,16 @@ input {
 	margin: .4em 0 .4em 0;
 }
 
-/* everywhere else */
-{
-	font-family: Arial, Helvetica, sans-serif;
+.error {
+	height: 2em;
+	font-family: Arial;
+	font-size: 1em;
+	margin: .4em 0 .4em 0;
+	color: red;
+}
+
+.standard {
+	font-family: Arial;
+	font-size: 1em;
 	color: #369;
 }

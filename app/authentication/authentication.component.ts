@@ -17,6 +17,7 @@ export class AuthenticationComponent implements OnInit {
     authentication: Authentication;
     email: string;
     user: User;
+    error: string;
 
     constructor(
         private router: Router,
@@ -37,7 +38,10 @@ export class AuthenticationComponent implements OnInit {
 
         this.authenticationService.authenticate(this.authentication)
             .subscribe((data: Authentication) => this.authentication = data,
-            error => console.log(error),
+            error => {
+              this.error = "User not authenticated";
+                console.log(error);
+            },
             () => {
                 console.log("Authentication successful");
                 this.loadUser();
@@ -61,7 +65,9 @@ export class AuthenticationComponent implements OnInit {
 
     private cancel() {
         console.log("login canceled")
+        this.error = null;
         this.authentication.email = '';
         this.authentication.password = '';
+
     }
 }

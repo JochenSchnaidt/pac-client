@@ -1,37 +1,42 @@
 <div *ngIf="vote">
-	<h2>EDIT: {{vote.topic}}</h2>
-
-	<div>
-		{{vote.id}}
-		<p>editable: {{vote.editable}}
+	<h2>{{vote.topic}}</h2>
+	<p>
+	<input [(ngModel)]="vote.topic" placeholder="Topic"/>
+	<br>
+	<span class="standard" >To edit the topic edit here</span>
+	<p>	
+	<input [(ngModel)]="vote.description" placeholder="Description"/>
+	<br>
+	<span class="standard" >To edit the description of the vote, change content here</span>
+	<p><br>
+	<div class="standard" >
+		Option can be changed in the fields beneath.
 	</div>
-
-
-	<div>
-		Topic: <input [(ngModel)]="vote.topic" placeholder="topic" />
-	</div>
-
-	<div>
-		Description: <input [(ngModel)]="vote.description"
-			placeholder="description" />
-	</div>
-
-	<div>Options</div>
 	<ul>
-		<li *ngFor="let option of vote.options">
-			<div>
-				<input [(ngModel)]="option.name" />
-			</div>
+		<li>
+			<input [(ngModel)]="vote.options[0].name" placeholder="Option 1" />
+		</li>
+		<li>
+			<input [(ngModel)]="vote.options[1].name" placeholder="Option 2" />
+		</li>
+		<li>
+			<input [(ngModel)]="vote.options[2].name" placeholder="Option 3"/>
 		</li>
 	</ul>
+	
+	<hr />
 
-	<div>
-		<label>Created from: </label>{{vote.createdByUsername}}
+	<div class="standard">
+		 Created by: {{vote.createdByUserName}}
 	</div>
-	<div>
-		<label>Created on: </label>{{vote.creationDate}}
+	<div class="standard">
+		Created on: {{vote.creationDate}}
 	</div>
+
+	<hr />
 
 	<button (click)="goBack()">Back</button>
 	<button *ngIf="vote.editable" (click)="save()">Save</button>
+	
+	<p>{{vote.id}}<br />editable: {{vote.editable}}
 </div>

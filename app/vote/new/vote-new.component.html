@@ -1,29 +1,30 @@
 <div *ngIf="vote">
 	<h3>Create a new vote</h3>
 	<p>
-	<div>
+	<div class="standard" >
 		To create a new vote, just fill out the fields beneath.
 	</div>
-
-		<input [(ngModel)]="vote.topic" placeholder="topic"/>
-			
-	<div>
-		Description: <input [(ngModel)]="vote.description" placeholder="description"/>
+	<p>
+	<input [(ngModel)]="vote.topic" placeholder="Topic"/>
+	<br>
+	<span class="standard" >Enter the general topic of the vote here</span>
+	<p>	
+	<input [(ngModel)]="vote.description" placeholder="Description"/>
+	<br>
+	<span class="standard" >Enter your description of the vote here</span>
+	<p><br>
+	<div class="standard" >
+		At the moment  you can define three options, the users are able to vote.
 	</div>
-
 	<ul>
 		<li>
-			<div>
-				Option 1: <input [(ngModel)]="vote.options[0].name" />
-			</div>
-
-			<div>
-				Option 2: <input [(ngModel)]="vote.options[1].name" />
-			</div>
-
-			<div>
-				Option 3: <input [(ngModel)]="vote.options[2].name" />
-			</div>
+			<input [(ngModel)]="vote.options[0].name" placeholder="Option 1" />
+		</li>
+		<li>
+			<input [(ngModel)]="vote.options[1].name" placeholder="Option 2" />
+		</li>
+		<li>
+			<input [(ngModel)]="vote.options[2].name" placeholder="Option 3"/>
 		</li>
 	</ul>
 

@@ -1,0 +1,13 @@
+.participate-list-standard {
+	font-family: Arial;
+	font-size: 1em;
+	color: #369;
+	height: 2em;
+  	vertical-align: middle;
+    padding-left: .4em;
+  	margin: .4em 0 .4em 0;
+}
+
+input[type="radio"]{
+    vertical-align: middle;
+}

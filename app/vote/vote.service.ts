@@ -75,7 +75,6 @@ export class VoteService {
     public delete = (deletableVote: Vote): Observable<Response> => {
         this.prepareHeader();
         return this.http.delete(this.actionUrl + 'vote/' + deletableVote.id, this.options)
-            .map((response: Response) => <Vote>response.json())
             .catch(this.handleError);
     }
 

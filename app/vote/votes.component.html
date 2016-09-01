@@ -1,11 +1,11 @@
-<h3>Existing votes</h3>
+<h3>Existing Votes</h3>
 <ul class="votes">
 	<li *ngFor="let vote of votes" (click)="onSelect(vote)"[class.selected]="vote === selectedVote">
-		<span>
+		<span class="standard">
 			{{vote.topic}}
 		</span>
 	</li>
 </ul>
 
 <div class="error" *ngIf="error">{{error}}</div>
-<button (click)="addVote()">Add New Vote</button>
+<button *ngIf="!error" (click)="addVote()">Add New Vote</button>

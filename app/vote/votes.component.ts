@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
- 
+
 
 import { Vote }                     from './model/vote';
 import { VoteService }              from './vote.service';
@@ -20,7 +20,7 @@ export class VotesComponent implements OnInit {
 
     votes: Vote[];
     selectedVote: Vote;
-    error: any;
+    error: string;
 
     constructor(
         private router: Router,
@@ -28,11 +28,11 @@ export class VotesComponent implements OnInit {
         private authenticationService: AuthenticationService) { }
 
     ngOnInit() {
-
         if (this.authenticationService.isAuthenticated()) {
             this.getVotes();
         } else {
             console.error("user not authenticated");
+            this.error = "User not authenticated";
         }
     }
 
@@ -46,9 +46,14 @@ export class VotesComponent implements OnInit {
     }
 
     private addVote() {
-        this.selectedVote = null;
-        console.log("create new vote");
-        this.router.navigate(['/voteNew']);
+        if (this.authenticationService.isAuthenticated()) {
+            this.selectedVote = null;
+            console.log("create new vote");
+            this.router.navigate(['/voteNew']);
+        } else {
+            console.error("user not authenticated");
+            this.error = "User not authenticated";
+        }
     }
 
 

@@ -1,23 +1,27 @@
 <div *ngIf="vote">
 	<h2>{{vote.topic}}</h2>
 
-	<div>
-		{{vote.id}}
-		<br />editable: {{vote.editable}}
-	</div>
-
-	<div>{{vote.description}}</div>
+	<div class="standard">{{vote.description}}</div>
 
 	<hr />
 	<ul>
 		<div *ngFor="let option of vote.options">
-			<input type="radio" (click)="addVoting(option.id)" name="Options" value="option.id"> {{option.name}}
+			<input type="radio" (click)="addVoting(option.id)" name="Options" value="option.id"><span class="participate-list-standard">{{option.name}}</span>
 		</div>
 	</ul>
+	
 	<hr />
 
-	<div>created from: {{vote.createdBy}}</div>
-	<div>created on: {{vote.creationDate}}</div>
+	<div class="standard">
+		 Created by: {{vote.createdByUserName}}
+	</div>
+	<div class="standard">
+		Created on: {{vote.creationDate}}
+	</div>
+
+	<hr />
 
 	<button (click)="goBack()">Back</button>
+	
+	<p>{{vote.id}}<br />editable: {{vote.editable}}
 </div>

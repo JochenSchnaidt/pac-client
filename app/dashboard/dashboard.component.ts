@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
 
     user: User;
     votes: Vote[] = [];
+    error: string;
 
     constructor(
         private router: Router,
@@ -28,9 +29,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        if (this.authenticationService.isAuthenticated()) {
-
+       if (this.authenticationService.isAuthenticated()) {
             this.voteService.getAll()
                 .subscribe((data: Vote[]) => this.votes = data,
                 error => console.log(error),
@@ -38,6 +37,7 @@ export class DashboardComponent implements OnInit {
 
         } else {
             console.error("user not authenticated");
+            this.error = "User not authenticated";
         }
     }
 
