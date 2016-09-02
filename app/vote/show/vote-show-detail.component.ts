@@ -77,7 +77,13 @@ export class VoteShowDetailComponent implements OnInit, OnDestroy {
 
     private userHasAlreadyVoted() {
 
-        for (let selection of this.userService.getCurrentUser().selections) {
+        let user = this.userService.getCurrentUser();
+
+        if (typeof user.selections === 'undefined' || user.selections === null) {
+            return false;
+        }
+
+        for (let selection of user.selections) {
             if (selection.voteId == this.vote.id) {
                 return true;
             }
